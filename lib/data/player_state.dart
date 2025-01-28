@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:goplayer/goplayer.dart';
 import 'package:http/http.dart' as http;
 import 'package:screen_brightness/screen_brightness.dart';
-import 'package:video_player/video_player.dart';
 import 'package:video_preview_thumbnails/video_preview_thumbnails.dart';
 import 'package:volume_controller/volume_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -70,12 +69,18 @@ class PlayerState extends ChangeNotifier {
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(media.url),
       httpHeaders: media.headers ?? {},
-      closedCaptionFile: Future.value(closedCaption),
+      //closedCaptionFile: Future.value(closedCaption),
     );
+
+    _controller!.initialize().then((_) {
+      //temp
+      configuration.onCastClick?.call();
+    });
 
     _controller?.addListener(_eventListener);
 
     _loadVttThumbnails();
+    notifyListeners();
   }
 
   /// Null if not playing media from playlist

@@ -26,8 +26,8 @@ extension DurationExtensions on Duration? {
 
 
 class PlayerAssetHelper {
-  final _controlIcons = "packages/gotipath_player/assets/control_icons";
-  final _lottie = "packages/gotipath_player/assets/lottie";
+  final _controlIcons = "packages/goplayer/assets/control_icons";
+  final _lottie = "packages/goplayer/assets/lottie";
 
   String get backButton => "$_controlIcons/back_button.svg";
   String get episodes => "$_controlIcons/episodes.svg";
