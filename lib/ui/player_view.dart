@@ -29,23 +29,30 @@ class PlayerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: state,
-      child: Consumer<PlayerState>(
-        builder: (_, state, ___) => SizedBox(
-          child: Stack(
-            children: [
-              if (state.nowPlaying != null) Positioned.fill(child: VideoPlayer(state.controller!)),
-              // if (defaultOverlays) posterWidget(context),
-              if (defaultOverlays)
-                const Positioned.fill(child: PlayerControls()),
-              if (defaultOverlays) loadingIndicatorWidget(context),
-              ...overlays,
-              if (defaultOverlays) errorIndicatorWidget(context),
-            ],
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: ChangeNotifierProvider.value(
+            value: state,
+            child: Consumer<PlayerState>(
+              builder: (_, state, ___) => SizedBox(
+                child: Stack(
+                  children: [
+                    if (state.nowPlaying != null)
+                      Positioned.fill(child: VideoPlayer(state.controller!)),
+                    // if (defaultOverlays) posterWidget(context),
+                    if (defaultOverlays)
+                      const Positioned.fill(child: PlayerControls()),
+                    if (defaultOverlays) loadingIndicatorWidget(context),
+                    if (defaultOverlays) errorIndicatorWidget(context),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+        ...overlays,
+      ],
     );
   }
 
